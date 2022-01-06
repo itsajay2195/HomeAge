@@ -8,7 +8,37 @@ const DEVICE_HEIGHT = Dimensions.get('window').height
 const DEVICE_WIDTH = Dimensions.get('window').width
 
 
-export default function SlideIn({ temp, name, index }) {
+export default function SlideIn({ temp, name, index,forecast }) {
+
+    const iconPicker = (forecast)=>{
+        switch(forecast){
+            case 'Sunny':
+                return 'sun'
+            case 'Rainy':
+                return 'cloud-drizzle'
+            case 'Cloudy':
+                return 'cloud'
+            case 'Snow':
+                return 'cloud-snow'
+            default:
+                return 'sun'
+        }
+    }
+
+    const colorPicker = (forecast)=>{
+        switch(forecast){
+            case 'Sunny':
+                return '#cfbe10'
+            case 'Rainy':
+                return '#0039a6'
+            case 'Cloudy':
+                return '#6CB4EE'
+            case 'Snow ':
+                return '#00008B'
+            default:
+                return 'sun'
+        }
+    }
     return (
         <TouchableOpacity>
             <Animated.View
@@ -16,7 +46,7 @@ export default function SlideIn({ temp, name, index }) {
                 style={styles.card}>
 
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.temperatureText}>{temp} {'\u00b0'}</Text>
+                    <Text style={styles.temperatureText}>{temp}{'\u00b0'}</Text>
                     <View style={styles.centerText}>
                         <Text style={{ fontSize: 16, fontWeight: '700' }}>{name} </Text>
                         <Text style={{ fontWeight: '300' }}>{name} </Text>
@@ -28,7 +58,7 @@ export default function SlideIn({ temp, name, index }) {
 
 
                 <View style={styles.iconWrapper}>
-                    <Feather name='cloud' style={{ alignSelf: 'center' }} size={25} color='#6CB4EE' />
+                    <Feather name={iconPicker(forecast)} style={{ alignSelf: 'center' }} size={25} color={colorPicker(forecast)} />
                 </View>
 
             </Animated.View >
@@ -60,7 +90,7 @@ const styles = StyleSheet.create({
     },
     centerText: {
         paddingLeft: 10,
-        justifyContent: 'center',
+        top: 25,
 
     }
 })
